@@ -16,11 +16,11 @@ public class FalsaPosicion {
 		double respuesta = Double.NaN;
 		double x=x0;
 		int k=0;
-		String i = "x0\tx1\t\t\t\tx\t\tf(x)\t\terrorPermitido:";
+		String i = " Numero de iteración:\tx0\tx1\tx\tf(x)\terrorPermitido,\terrorNormalizado ";
 		iteraciones.add(i);
-		while (Math.abs(f.evaluar(x))>=error&&k<n) {
-			x=((x*f.evaluar(x1)) - (x1 * f.evaluar(x0)))/(f.evaluar(x1)-f.evaluar(x0));
-			i="\n"+ x0 + "\t" + x1 + "\t" + x + "\t" + f.evaluar(x) + "\t" + error;
+		while ((Math.abs(f.evaluar(x))>error&&k<n)) {
+			x=x0*f.evaluar(x1) - x1 * f.evaluar(x0)/(f.evaluar(x1)-f.evaluar(x0));
+			i="\n\t\t"+k+"\t"+ round(x0, 3) + "\t" + round(x1, 3) + "\t" + round(x, 3) + "\t" + round(f.evaluar(x),3) + "\t" + error+"\t\t"+round(Math.abs((f.evaluar(k+1)-f.evaluar(k))/f.evaluar(k)),3);
 			iteraciones.add(i);
 			if (f.evaluar(x0)*f.evaluar(x)<0) {
 				x1=x;
@@ -28,9 +28,10 @@ public class FalsaPosicion {
 				x0 = x;
 			}
 			k++;
-			if (k<n) {
-				respuesta =x;
-			}
+			
+		}
+		if (k<n) {
+			respuesta =x;
 		}
 		return respuesta;
 	}
@@ -39,18 +40,21 @@ public class FalsaPosicion {
 		return iteraciones;
 	}
 	
-}
-abstract class Funcion {
-	public abstract double evaluar(double x0);
-}
+	public static double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
 
-class Main {
+	    long factor = (long) Math.pow(10, places);
+	    value = value * factor;
+	    long tmp = Math.round(value);
+	    return (double) tmp / factor;
+	}
+	
 	public static void main(String[] args) {
 		Funcion f = new Funcion() {
 
 			@Override
 			public double evaluar(double x) {
-				return Math.pow(x, 10)-(10*x)+4;
+				return Math.pow(x, 5)-2*x+70;
 			}
 		};
 		
@@ -59,4 +63,8 @@ class Main {
 		System.out.println("El valor de la raiz es: "+raiz);
 		System.out.println("Iteraciones realizadas \n"+fp.getIter());
 	}
+	
+}
+abstract class Funcion {
+	public abstract double evaluar(double x0);
 }
