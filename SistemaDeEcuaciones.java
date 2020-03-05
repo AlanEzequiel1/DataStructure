@@ -1,3 +1,8 @@
+/*
+ * Hecho por Alan Ezequiel Savoy
+ * A01351362
+ */
+
 import java.util.Scanner;
 
 public class SistemaDeEcuaciones {

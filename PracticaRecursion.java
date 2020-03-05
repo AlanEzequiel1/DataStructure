@@ -10,25 +10,14 @@ public class PracticaRecursion {
 			return false;
 		}else {
 			boolean respuesta1=coordenadasTwitter(x1+y1, y1, xf, yf);
-			boolean respuesta2=coordenadasTwitter(x1, y1+x1, xf, yf);
-			if (!respuesta1) {
-				respuesta2=coordenadasTwitter(x1, y1+x1, xf, yf);
-				if (!respuesta2) {
-					return false;
-				}else {
-					return true;
-				}
-			}else if (!respuesta2) {
-				respuesta1=coordenadasTwitter(x1+y1, y1, xf, yf);
-				if (!respuesta1) {
-					return false;
-				}else {
-					return true;
-				}
-			}
-			else {
+			if (respuesta1) {
 				return true;
 			}
+			boolean respuesta2=coordenadasTwitter(x1, y1+x1, xf, yf);
+			if (respuesta2) {
+				return true;
+			}
+			return false;
 		}
 	}
 	
@@ -47,8 +36,43 @@ public class PracticaRecursion {
 		}
 	}
 	
+	public static boolean palindromoIterativo(int x) {
+		int falta=x;
+		int numeroInvertido=0;
+		int resto=0;
+		while(falta!=0)
+		{
+		 resto=falta%10;
+		 numeroInvertido=numeroInvertido*10+resto;
+		 falta=falta/10;
+		}
+		if (numeroInvertido==x) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
-	private static int imprimir(int x) {
+	public static boolean palindromoRec(int x) {
+		return palindromoRec(x, x, 0, 0);
+	}
+	public static boolean palindromoRec(int x,int numero,int numeroInvertido, int resto) {
+		if (numero==0) {
+			if (numeroInvertido==x) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}else {
+			resto=numero%10;
+			numeroInvertido=numeroInvertido*10+resto;
+			numero =numero/10;
+			return palindromoRec(x, numero, numeroInvertido, resto);
+		}
+	}
+	public static int imprimir(int x) {
 		int respuesta;
 		if (x<=0) {
 			System.out.println(x);
@@ -61,10 +85,13 @@ public class PracticaRecursion {
 		}
 	}
 	
+	
 	public static void main(String[] args) {
-		imprimir(10);
-		System.out.println(coordenadasTwitter(0, 0, 1, 1));
-		System.out.println(reachingPoints(3, 5, 13, 5));
+		//imprimir(10);
+		System.out.println(coordenadasTwitter(1, 24, 123, 172));
+		//System.out.println(reachingPoints(3, 3, 12, 9));
+		//System.out.println(palindromoIterativo(4224));
+		//System.out.println(palindromoRec(0));
 	}
 
 }

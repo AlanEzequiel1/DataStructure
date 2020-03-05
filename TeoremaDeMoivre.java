@@ -34,7 +34,7 @@ public class TeoremaDeMoivre {
 			double real, imaginario;
 			real = Math.pow(Math.sqrt(r), 2)*(r*(Math.cos(angulo+(2*Math.PI*i)/n)));
 			imaginario = Math.pow(Math.sqrt(r), 2)*(r*(Math.sin(angulo+(2*Math.PI*i)/n)));
-			respuesta = respuesta + "X"+i+" = "+real+"+"+imaginario+"i\n";
+			respuesta = respuesta + "X"+i+" = "+real+" + "+imaginario+"i\n";
 		}
 	}
 	

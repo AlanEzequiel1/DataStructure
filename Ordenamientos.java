@@ -7,6 +7,7 @@
  */
 public class Ordenamientos {
 
+	/*
 	public static <E extends Comparable<E>> void bubbleSort(E[] datos) {
 		for (int i = 0; i < datos.length-1; i++) {
 			for(int j=0; j<datos.length-1-i; j++){
@@ -16,7 +17,7 @@ public class Ordenamientos {
 			}
 		}
 	}
-	
+	*/
 	public static <E> void imprimeArreglo(E[]datos) {
 		for (E tmp:datos) {
 			System.out.print(tmp+", ");
@@ -27,7 +28,7 @@ public class Ordenamientos {
 		datos[i]=datos[j];
 		datos[j]=aux;
 	}
-	
+	/*
 	public static <E extends Comparable<E>> void mergesort(E[] datos) {
 		mergesort(datos, 0, datos.length-1);
 		imprimeArreglo(datos);
@@ -83,11 +84,41 @@ public class Ordenamientos {
 			datos[i]=aux[apuntadorAyuda];
 			apuntadorAyuda++;
 		}
-		
 	}
+	*/
+	
+	public static <E extends Comparable<E>>void quicksort(E[] datos) {
+		quicksort(datos, 0, datos.length-1);
+		imprimeArreglo(datos);
+	}
+	
+	private static <E extends Comparable<E>>void quicksort(E[] datos, int left, int right) {
+		if (left<right) {
+			int posPivote = particion(datos, left, right);
+			quicksort(datos, left, posPivote-1);
+			quicksort(datos, posPivote+1, right);
+		}
+	}
+	
+	private static <E extends Comparable<E>> int particion(E[] datos, int left, int right) {
+		E p =datos[left];
+		int i = left+1;
+		for (int j = left+1; j <= right; j++) {
+			if (datos[j].compareTo(p)<0) {
+				swap(datos, i, j);
+				i++;
+			}
+		}
+		swap(datos, left , i-1);
+		return i-1 ;
+	}
+	
 	public static void main(String[] args) {
-		Integer[] valores = {1000,-1233,23422,79272,828273,-2451345,32,19284,-2342,9336};
+		Integer[] valores = {200,15,7,-20,155,33,-40,-21,1,90,0,-300,100000,15,-50,15};
 		//bubbleSort(valores);
-		mergesort(valores);
+		//System.out.println();
+		//mergesort(valores);
+		//System.out.println();
+		quicksort(valores);
 	}
 }
